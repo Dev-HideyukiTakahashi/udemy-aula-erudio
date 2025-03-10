@@ -7,9 +7,11 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.udemy.erudio_springboot.dto.v1.PersonDTO;
+import br.com.udemy.erudio_springboot.dto.v2.PersonDTOV2;
 import br.com.udemy.erudio_springboot.exception.ResourceNotFoundException;
+import br.com.udemy.erudio_springboot.mapper.PersonMapper;
 import br.com.udemy.erudio_springboot.model.Person;
-import br.com.udemy.erudio_springboot.dto.PersonDTO;
 import br.com.udemy.erudio_springboot.repository.PersonRepository;
 
 import static br.com.udemy.erudio_springboot.mapper.ObjectMapper.*;
@@ -21,6 +23,9 @@ public class PersonService {
 
     @Autowired
     private PersonRepository personRepository;
+
+    @Autowired
+    private PersonMapper mapper;
 
     public List<PersonDTO> findAll() {
         logger.info("Finding all people!");
@@ -42,6 +47,13 @@ public class PersonService {
 
         var entity = parseObjects(dto, Person.class);
         return parseObjects(personRepository.save(entity), PersonDTO.class);
+    }
+
+    public PersonDTOV2 createV2(PersonDTOV2 dto) {
+        logger.info("Creating one person V2!");
+
+        var entity = mapper.dtoToEntity(dto);
+        return mapper.entityToDTO(personRepository.save(entity));
     }
 
     public PersonDTO update(PersonDTO dto) {
