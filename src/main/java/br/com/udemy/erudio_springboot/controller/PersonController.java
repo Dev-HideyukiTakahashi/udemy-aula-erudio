@@ -19,7 +19,7 @@ import br.com.udemy.erudio_springboot.dto.v2.PersonDTOV2;
 import br.com.udemy.erudio_springboot.service.PersonService;
 
 @RestController
-@RequestMapping(path = "/person")
+@RequestMapping(path = "/api/person/v1")
 public class PersonController {
 
     @Autowired
