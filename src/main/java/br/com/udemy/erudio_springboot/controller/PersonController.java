@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.udemy.erudio_springboot.model.Person;
+import br.com.udemy.erudio_springboot.dto.PersonDTO;
 import br.com.udemy.erudio_springboot.service.PersonService;
 
 @RestController
@@ -25,23 +25,23 @@ public class PersonController {
     private PersonService personService;
 
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person findById(@PathVariable Long id) {
+    public PersonDTO findById(@PathVariable Long id) {
         return personService.findById(id);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Person> findAll() {
+    public List<PersonDTO> findAll() {
         return personService.findAll();
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Person create(@RequestBody Person person) {
-        return personService.create(person);
+    public PersonDTO create(@RequestBody PersonDTO dto) {
+        return personService.create(dto);
     }
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Person update(@RequestBody Person person) {
-        return personService.create(person);
+    public PersonDTO update(@RequestBody PersonDTO dto) {
+        return personService.create(dto);
     }
 
     @DeleteMapping(path = "/{id}")
