@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+//@CrossOrigin(origins = "http://localhost:8080") implementação no controller
+// por default é livre pra todos se não preencher a origins
 @RestController
 @RequestMapping(path = "/api/person/v1")
 @Tag(name = "People", description = "Endpoints for managing people")
@@ -24,14 +26,16 @@ public class PersonController {
     @Autowired
     private PersonService personService;
 
+    // implementação na rota
+    @CrossOrigin(origins = {"http://localhost:8080", "http://www.outraorigem.com"})
     @Operation(
             summary = "Find a Person",
             description = "Find a specific person by your ID",
             tags = "People",
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200", content =
-                            @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema =
-                            @Schema(implementation = PersonDTO.class))),
+                    @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema =
+                    @Schema(implementation = PersonDTO.class))),
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "403", content = @Content),
@@ -49,8 +53,8 @@ public class PersonController {
             tags = "People",
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200", content = {
-                           @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, array =
-                           @ArraySchema(schema = @Schema(implementation = PersonDTO.class)))}),
+                            @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, array =
+                            @ArraySchema(schema = @Schema(implementation = PersonDTO.class)))}),
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Unauthorized", responseCode = "403", content = @Content),
