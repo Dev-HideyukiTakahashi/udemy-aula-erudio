@@ -1,8 +1,10 @@
 package br.com.udemy.erudio_springboot.dto.v1;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import java.util.Objects;
 
-public class PersonDTO {
+public class PersonDTO extends RepresentationModel<PersonDTO> {
 
     private Long id;
     private String firstName;
